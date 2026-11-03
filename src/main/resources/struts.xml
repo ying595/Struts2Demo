@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.5//EN"
+        "http://struts.apache.org/dtds/struts-2.5.dtd">
+<struts>
+    <constant name="struts.devMode" value="true"/>
+    <constant name="struts.i18n.encoding" value="UTF-8"/>
+    <constant name="struts.ui.theme" value="simple"/>
+
+    <package name="rental" extends="struts-default" namespace="/">
+
+        <!-- ============ 器材台账 ============ -->
+        <action name="equipment-list" class="com.demo.action.EquipmentAction" method="list">
+            <result name="list">/WEB-INF/views/equipment-list.jsp</result>
+        </action>
+        <action name="equipment-form" class="com.demo.action.EquipmentAction" method="input">
+            <result name="form">/WEB-INF/views/equipment-form.jsp</result>
+        </action>
+        <action name="equipment-save" class="com.demo.action.EquipmentAction" method="save">
+            <result name="form">/WEB-INF/views/equipment-form.jsp</result>
+            <result name="success" type="redirectAction">
+                <param name="actionName">equipment-list</param>
+            </result>
+        </action>
+        <action name="equipment-delete" class="com.demo.action.EquipmentAction" method="delete">
+            <result name="success" type="redirectAction">
+                <param name="actionName">equipment-list</param>
+            </result>
+        </action>
+
+        <!-- ============ 租赁 / 归还 ============ -->
+        <action name="rental-list" class="com.demo.action.RentalAction" method="list">
+            <result name="list">/WEB-INF/views/rental-list.jsp</result>
+        </action>
+        <action name="rental-form" class="com.demo.action.RentalAction" method="create">
+            <result name="form">/WEB-INF/views/rental-form.jsp</result>
+        </action>
+        <action name="rental-save" class="com.demo.action.RentalAction" method="save">
+            <result name="form">/WEB-INF/views/rental-form.jsp</result>
+            <result name="success" type="redirectAction">
+                <param name="actionName">rental-list</param>
+            </result>
+        </action>
+        <action name="rental-return-form" class="com.demo.action.RentalAction" method="returnForm">
+            <result name="return">/WEB-INF/views/rental-return.jsp</result>
+            <result name="redirect" type="redirectAction">
+                <param name="actionName">rental-list</param>
+            </result>
+        </action>
+        <action name="rental-return" class="com.demo.action.RentalAction" method="doReturn">
+            <result name="return">/WEB-INF/views/rental-return.jsp</result>
+            <result name="redirect" type="redirectAction">
+                <param name="actionName">rental-list</param>
+            </result>
+            <result name="success" type="redirectAction">
+                <param name="actionName">rental-list</param>
+            </result>
+        </action>
+        <action name="rental-cancel" class="com.demo.action.RentalAction" method="cancel">
+            <result name="success" type="redirectAction">
+                <param name="actionName">rental-list</param>
+            </result>
+        </action>
+
+        <!-- ============ 排期 ============ -->
+        <action name="schedule" class="com.demo.action.ScheduleAction" method="index">
+            <result name="success">/WEB-INF/views/schedule.jsp</result>
+        </action>
+    </package>
+</struts>
